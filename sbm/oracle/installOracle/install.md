@@ -3,10 +3,7 @@
 oracle静默安装响应文件 
 
 一。安装前的准备工作
-
-###
- #vi /etc/hosts  //添加IP地址对应的hostname。;
-﻿
+  #vi /etc/hosts  //添加IP地址对应的hostname。;
 
 1.先安装好centos 6.3版本的系统 （略）
 要求：
@@ -17,10 +14,10 @@ Between 1 GB and 2 GB	1.5 times the size of the RAM
 Between 2 GB and 16 GB	Equal to the size of the RAM
 More than 16 GB	16 GB
 如果swap大小太小，可以删除或者重新制作一个分区，当成swap用一样的。
-#dd if=/dev/zero of=/swap bs=1M count=10000
-#mkswap /swap
-#swapon /swap  //挂载这个swap
-#swapon -s //查看swap分区
+  #dd if=/dev/zero of=/swap bs=1M count=10000
+  #mkswap /swap
+  #swapon /swap  //挂载这个swap
+  #swapon -s //查看swap分区
 
 
 
@@ -150,47 +147,47 @@ shmmax 指的是单个共享内存段的最大尺寸， 设置shmmax=1G，sga分
 shmmni内核参数是 共享内存段的最大数量（注意这个参数不是 shmmin,是 shmmni, shmmin 表示内存段最小大小 ） 。shmmni 缺省值 4096 ，一般肯定是够用了 。
 
 
-#vi /etc/security/limits.conf
-
-oracle soft nproc 2047
-oracle hard nproc 16384 
-oracle soft nofile 1024
-oracle hard nofile 65536 
-oracle soft stack 102405
+  #vi /etc/security/limits.conf
+  
+  oracle soft nproc 2047
+  oracle hard nproc 16384 
+  oracle soft nofile 1024
+  oracle hard nofile 65536 
+  oracle soft stack 102405
 
 创建oracle帐号和组
-#groupadd oinstall 
-#groupadd dba
-#useradd -g oinstall -G dba oracle
+  #groupadd oinstall 
+  #groupadd dba
+  #useradd -g oinstall -G dba oracle
 
 6。创建相关数据库目录
 我们最好把安装数据库单独放到一个独立或多个分区的磁盘上（raid+lvm），这样即可以确保数据安全，和性能保障，又可以随时增减容量而不影响当前业务。
-#mkdir /u01
-#mount /dev/sda3 /u01
-#mkdir /u01/app
-#mkdir /u01/app/oracle/oradata //存放数据库的数据目录
-#mkdir /u01/app/oracle/oradata_back //存放数据库备份文件
-#chown -R oracle.oinstall /u01/app
-#chmod 775 /u01/app
+  #mkdir /u01
+  #mount /dev/sda3 /u01
+  #mkdir /u01/app
+  #mkdir /u01/app/oracle/oradata //存放数据库的数据目录
+  #mkdir /u01/app/oracle/oradata_back //存放数据库备份文件
+  #chown -R oracle.oinstall /u01/app
+  #chmod 775 /u01/app
 
 7。修改oracle环境变量
 
-TMP=/tmp; export TMP  
-TMPDIR=$TMP; export TMPDIR 
-ORACLE_BASE=/u01/app/oracle; export ORACLE_BASE  
-ORACLE_HOME=$ORACLE_BASE/product/11.2.0/db_1; export  ORACLE_HOME  
-ORACLE_SID=racl; export ORACLE_SID  
-ORACLE_TERM=xterm; export ORACLE_TERM  
-PATH=$ORACLE_HOME/bin:/usr/sbin:$PATH; export PATH  
-LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib;  
-export LD_LIBRARY_PATH  
-CLASSPATH=$ORACLE_HOME/JRE:$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib;  
-export CLASSPATH
+  TMP=/tmp; export TMP  
+  TMPDIR=$TMP; export TMPDIR 
+  ORACLE_BASE=/u01/app/oracle; export ORACLE_BASE  
+  ORACLE_HOME=$ORACLE_BASE/product/11.2.0/db_1; export  ORACLE_HOME  
+  ORACLE_SID=racl; export ORACLE_SID  
+  ORACLE_TERM=xterm; export ORACLE_TERM  
+  PATH=$ORACLE_HOME/bin:/usr/sbin:$PATH; export PATH  
+  LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib;  
+  export LD_LIBRARY_PATH  
+  CLASSPATH=$ORACLE_HOME/JRE:$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib;  
+  export CLASSPATH
 
 二。静默安装文件
 解压oracle文件，进入response目录下
-#cp * /etc
-#vi /etc/db_install.rsp
+  #cp * /etc
+  #vi /etc/db_install.rsp
 //相关修改可以参考我上一篇”oracle静默安装文件db_install.rsp详解“
 
 开始安装oracle软件：
