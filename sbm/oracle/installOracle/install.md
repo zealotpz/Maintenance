@@ -3,7 +3,7 @@
 oracle静默安装响应文件 
 
 一。安装前的准备工作
-  #vi /etc/hosts  //添加IP地址对应的hostname。;
+  #vi /etc/hosts  //添加IP地址对应的hostname
 
 1.先安装好centos 6.3版本的系统 （略）
 要求：
@@ -88,7 +88,7 @@ unixODBC-devel-2.2.14-11.el6.i686 or later
 
 4.修改内核参数。
 
-#vi /etc/sysctl.conf  请根据自己实际情况修改，内核参数如下：
+  #vi /etc/sysctl.conf  请根据自己实际情况修改，内核参数如下：
 
 fs.aio-max-nr = 1048576
  fs.file-max = 6815744
@@ -103,7 +103,7 @@ net.core.rmem_default = 262144
  net.core.wmem_max = 1048576
 
 
-# /sbin/sysctl -p
+  # /sbin/sysctl -p
 参数说明 //网上摘抄
 
 1、kernel.shmall参数是控制共享内存页数
@@ -211,9 +211,9 @@ $cd /opt/database
 
   Successfully Setup Software.
  表示安装成功了。按照其提示操作。
- $exit  //退回到root
-#/u01/app/oracle/oraInventory/orainstRoot.sh
-#/u01/app/oracle/product/11.2.0/db_1/root.sh
+   $exit  //退回到root
+   #/u01/app/oracle/oraInventory/orainstRoot.sh
+   #/u01/app/oracle/product/11.2.0/db_1/root.sh
 
 三。静默配置监听
 
