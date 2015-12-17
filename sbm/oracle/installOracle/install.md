@@ -1,7 +1,8 @@
  CentOs 6.3_64静默安装oracle11g_r2 
 
 oracle静默安装响应文件 
-
+###  响应文件为Maintenance/sbm/oracle/installOracle下
+  db_install.rsp，dbca.rsp，netca.rsp
 一。安装前的准备工作
 ```bash
 #vi /etc/hosts  //添加IP地址对应的hostname
