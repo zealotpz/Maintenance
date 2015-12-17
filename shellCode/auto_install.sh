@@ -7,6 +7,8 @@ BIKECC_DIR=/Users/zealotpz/SvnFile/bikecc-nre
 BIKEMT_DIR=/Users/zealotpz/SvnFile/nest/develop/5代码/01code/trunk/nest-nre
 #服务器ip
 SERVICEIP=123.456.789
+#使用SFTP需使用  密钥文件,见同目录下 ssh_key.sh
+
 #================= 网关-5080 maven install bike-gw =================
 cd ${BIKEGW_DIR}
 echo "--------------------- 开始打包<网关>bikegw.war  --------------------"
