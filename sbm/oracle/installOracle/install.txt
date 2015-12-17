@@ -4,7 +4,7 @@ oracle静默安装响应文件
 
 一。安装前的准备工作
 
-#vi /etc/hosts  //添加IP地址对应的hostname。
+// #vi /etc/hosts  //添加IP地址对应的hostname。;
 ﻿
 
 1.先安装好centos 6.3版本的系统 （略）
