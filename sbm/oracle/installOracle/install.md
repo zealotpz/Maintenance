@@ -3,8 +3,9 @@
 oracle静默安装响应文件 
 
 一。安装前的准备工作
-  #vi /etc/hosts  //添加IP地址对应的hostname
-
+```bash
+#vi /etc/hosts  //添加IP地址对应的hostname
+```
 1.先安装好centos 6.3版本的系统 （略）
 要求：
 内存：至少1G
@@ -87,7 +88,7 @@ unixODBC-devel-2.2.14-11.el6.i686 or later
 
 
 4.修改内核参数。
-
+```bash
   #vi /etc/sysctl.conf  请根据自己实际情况修改，内核参数如下：
 
 fs.aio-max-nr = 1048576
@@ -104,6 +105,7 @@ net.core.rmem_default = 262144
 
 
   # /sbin/sysctl -p
+```
 参数说明 //网上摘抄
 
 1、kernel.shmall参数是控制共享内存页数
@@ -117,7 +119,7 @@ kernel.shmall的单位是页面数，当前的x86体系上这个单位是4K ，o
 对于32位系统，一页=4k，也就是4096字节。RHEL6.2 X64通过查询也是4096
 
 查询操作系统页面大小
-
+```bash
 $getconf PAGESIZE
 
 4096
@@ -129,7 +131,7 @@ kernel.shmall= 内存大小/页面大小
 kernel.shmall=12582912
 
 12582912*4096/1024/1024/1024=48G
-
+```
  
 
 2、kernel.shmmax
@@ -146,7 +148,7 @@ shmmax 指的是单个共享内存段的最大尺寸， 设置shmmax=1G，sga分
 
 shmmni内核参数是 共享内存段的最大数量（注意这个参数不是 shmmin,是 shmmni, shmmin 表示内存段最小大小 ） 。shmmni 缺省值 4096 ，一般肯定是够用了 。
 
-
+```bash
   #vi /etc/security/limits.conf
   
   oracle soft nproc 2047
@@ -154,14 +156,16 @@ shmmni内核参数是 共享内存段的最大数量（注意这个参数不是 
   oracle soft nofile 1024
   oracle hard nofile 65536 
   oracle soft stack 102405
-
+```
 创建oracle帐号和组
+```bash
   #groupadd oinstall 
   #groupadd dba
   #useradd -g oinstall -G dba oracle
-
+```
 6。创建相关数据库目录
 我们最好把安装数据库单独放到一个独立或多个分区的磁盘上（raid+lvm），这样即可以确保数据安全，和性能保障，又可以随时增减容量而不影响当前业务。
+```bash
   #mkdir /u01
   #mount /dev/sda3 /u01
   #mkdir /u01/app
@@ -169,9 +173,9 @@ shmmni内核参数是 共享内存段的最大数量（注意这个参数不是 
   #mkdir /u01/app/oracle/oradata_back //存放数据库备份文件
   #chown -R oracle.oinstall /u01/app
   #chmod 775 /u01/app
-
+```
 7。修改oracle环境变量
-
+```bash
   TMP=/tmp; export TMP  
   TMPDIR=$TMP; export TMPDIR 
   ORACLE_BASE=/u01/app/oracle; export ORACLE_BASE  
@@ -183,11 +187,13 @@ shmmni内核参数是 共享内存段的最大数量（注意这个参数不是 
   export LD_LIBRARY_PATH  
   CLASSPATH=$ORACLE_HOME/JRE:$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib;  
   export CLASSPATH
-
+```
 二。静默安装文件
 解压oracle文件，进入response目录下
+```bash
   #cp * /etc
   #vi /etc/db_install.rsp
+```
 //相关修改可以参考我上一篇”oracle静默安装文件db_install.rsp详解“
 
 开始安装oracle软件：
@@ -343,6 +349,7 @@ oracle    9863  0.0  1.8 740984 20516 ?        Ss   23:52   0:00 ora_w000_wang
 
 
  查看监听状态
+```bash
  $ lsnrctl status
  LSNRCTL for Linux: Version 11.2.0.1.0 - Production on 14-MAR-2012 07:09:03
 
@@ -369,8 +376,9 @@ oracle    9863  0.0  1.8 740984 20516 ?        Ss   23:52   0:00 ora_w000_wang
  Service "helloXDB.dlxg.gov.cn" has 1 instance(s).
    Instance "hello", status READY, has 1 handler(s) for this service...
  The command completed successfully
- 
+```
 13 修改数据库为归档模式(归档模式才能热备份，增量备份)
+```bash
  $ export ORACLE_SID=wang
  $ sqlplus / as sysdba
  SQL*Plus: Release 11.2.0.1.0 Production on Wed Mar 14 07:18:16 2012
@@ -422,7 +430,7 @@ oracle    9863  0.0  1.8 740984 20516 ?        Ss   23:52   0:00 ora_w000_wang
  SQL> exit
  Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
  With the Partitioning, OLAP, Data Mining and Real Application Testing options
- 
+``` 
 14 修改oracle启动配置文件
  $vim /etc/oratab
 racl:/u01/app/oracle/product/11.2.0/db_1:Y  //把“N”改成“Y”
