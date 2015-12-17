@@ -2,7 +2,7 @@
 
 oracle静默安装响应文件 
 ####  响应文件为Maintenance/sbm/oracle/installOracle下
-  db_install.rsp，dbca.rsp，netca.rsp
+######db_install.rsp，dbca.rsp，netca.rsp 3个文件
   
 一。安装前的准备工作
 ```bash
