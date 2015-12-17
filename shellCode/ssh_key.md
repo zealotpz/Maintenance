@@ -13,7 +13,7 @@ quit
 EOF
 ```
 #####--------
-可能会提示：ssh密钥文件无效问题的解
+#####ssh密钥文件无效问题的解
 Leave a commentGo to comments
 有时候我们为了省事，或者出于安全方面的考虑，在登录ssh的时候不使用密码，而是密钥文件。而有些发行版的/etc/ssh/sshd_config里，StrictModes默认被设定为yes，这可能会导致密钥文件不被接受的问题。解决方法也很简单，就是设置好相关目录的权限：
 ```bash
