@@ -1,9 +1,11 @@
 !/bin/bash
 #本地文件存放目录
 LOCAL_DIR=/Users/zealotpz/Bike/localhost/Ebike
+#需打包项目路径
 BIKEGW_DIR=/Users/zealotpz/SvnFile/bikeGW-nre
 BIKECC_DIR=/Users/zealotpz/SvnFile/bikecc-nre
 BIKEMT_DIR=/Users/zealotpz/SvnFile/nest/develop/5代码/01code/trunk/nest-nre
+#服务器ip
 SERVICEIP=123.456.789
 #================= 网关-5080 maven install bike-gw =================
 cd ${BIKEGW_DIR}
