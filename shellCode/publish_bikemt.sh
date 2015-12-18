@@ -30,7 +30,7 @@ rm -rf ${bikemt_SDIR}/logs/*
 rm -rf ${bikemt_SDIR}/bin/logs/*
 rm -rf ${bikemt_SDIR}/webapps/*
 echo "-----------------------   删除成功！  ---------------------------"
-cp /home/bikemt/war_new/bikemt.war ${BIKEMT_SDIR}/webapps/
+cp /home/bikemt/war_new/bikemt.war ${bikemt_SDIR}/webapps/
 echo "-----------------------   新 war 拷贝成功！  --------------------------"
 echo "-----------------------   开始启动 bikemt Tomcat  --------------------------"
 #获取环境变量，否则提示找不到 NEST_HOME
