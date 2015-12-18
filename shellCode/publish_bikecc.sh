@@ -34,6 +34,7 @@ echo "-----------------------   删除成功！  ---------------------------"
 cp /home/bike/war_new/whbike.war ${BIKECC_SDIR}/webapps/
 echo "-----------------------   新 war 拷贝成功！  --------------------------"
 echo "-----------------------   开始启动 bikecc Tomcat  --------------------------"
+#获取环境变量，否则提示找不到 NEST_HOME
 export NEST_HOME=/home/bike/NEST_FILE
 cd $StartTomcat
 nohup ./startup.sh &
