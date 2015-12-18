@@ -25,10 +25,15 @@ echo "---------------------<网关>bikegw.war 复制EBIKE成功 ----------------
 #-----------------------开始上传至服务器
 echo "-------------------- 开始上传至测试服务器  --------------------"
 sftp bike@${SERVICEIP}<<EOF
--put ${LOCAL_DIR}/bikegw.war /home/bike/
+-put ${LOCAL_DIR}/bikegw.war /home/bike/war_new
 quit
 EOF
 echo "-----------------------  上传成功！  ------------------------------"
+echo "-----------------------  开始备份并删除！  ---------------------------"
+#参数-tt 为脚本调用 ssh，否则无法登录；登录后调用服务器脚本
+ssh -tt bike@${SERVICEIP} "/home/bike/kill_bikecc.sh"<<EOF
+quit
+EOF
 
 #================= Bikemt-7080 maven install bike-gw =================
 cd ${BIKEMT_DIR}
