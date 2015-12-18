@@ -1,5 +1,5 @@
 #!/bin/bash
-BIKEMT_SDIR=/home/bikemt/apache-tomcat-bikemt
+bikemt_SDIR=/home/bikemt/apache-tomcat-bikemt
 StartTomcat=/home/bikemt/apache-tomcat-bikemt/bin/
 #获取时间并格式化
 time=`date +"%Y%m%d%H%M" `
@@ -24,7 +24,7 @@ sleep 3
 
 echo "-------------------  开始备份并删除日志文件与旧 war 包  ----------------------";
 #拷贝文件至至war_backup目录，没有则新建目录
-mkdir -p /home/bikemt/war_backup/ && cp ${BIKEMT_SDIR}/webapps/bikemt.war /home/bikemt/war_backup/$filename
+mkdir -p /home/bikemt/war_backup/ && cp ${bikemt_SDIR}/webapps/bikemt.war /home/bikemt/war_backup/$filename
 echo "-----------------------   备份成功！  ---------------------------"
 rm -rf ${bikemt_SDIR}/logs/*
 rm -rf ${bikemt_SDIR}/bin/logs/*
