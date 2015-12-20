@@ -1,4 +1,4 @@
---清空汇总表记录
+--清空汇总表记录,慎用！！
 truncate table T_SBM_MT_BIKE_BIKE_MONTH;
 truncate table T_SBM_MT_BIKE_BIKE_YEAR;
 truncate table T_SBM_MT_BIKE_DAY;
