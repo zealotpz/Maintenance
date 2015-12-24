@@ -1,6 +1,7 @@
 #!/bin/bash
 bikegw_SDIR=/home/bikegw/apache-tomcat-bikegw
 StartTomcat=/home/bikegw/apache-tomcat-bikegw/bin/
+newfile=/home/bikegw/war_new/bikegw.war
 #获取时间并格式化
 time=`date +"%Y%m%d%H%M" `
 #备份文件名
@@ -21,22 +22,27 @@ fi;
 echo "tomcat 关闭成功";
 
 sleep 3
-
-echo "-------------------  开始备份并删除日志文件与旧 war 包  ----------------------";
-#拷贝文件至至war_backup目录，没有则新建目录
-mkdir -p /home/bikegw/war_backup/ && cp ${bikegw_SDIR}/webapps/bikegw.war /home/bikegw/war_backup/$filename
-echo "-----------------------   备份成功！  ---------------------------"
-rm -rf ${bikegw_SDIR}/logs/*
-rm -rf ${bikegw_SDIR}/bin/logs/*
-rm -rf ${bikegw_SDIR}/webapps/*
-echo "-----------------------   删除成功！  ---------------------------"
-cp /home/bikegw/war_new/bikegw.war ${bikegw_SDIR}/webapps/
-echo "-----------------------   新 war 拷贝成功！  --------------------------"
-echo "-----------------------   开始启动 bikegw Tomcat  --------------------------"
-#获取环境变量，否则提示找不到 NEST_HOME
-export NEST_HOME=/home/bike/NEST_FILE
-cd $StartTomcat
-nohup ./startup.sh &
-sleep 4 #等候4秒
-TomcatNEWID=$(ps -ef |grep tomcat |grep -w 'apache-tomcat-bikegw'|grep -v 'grep'|awk '{print $2}')
-echo "bikegw tomcat 新进程为:$TomcatNEWID"
+#-f代表常规文件（regular file），-e代表所有任何类型文件
+if [ ! -f "$newfile" ]; then
+  echo "bikegw.war不存在，请上传文件！"
+else
+  echo "-------------------  开始备份并删除日志文件与旧 war 包  ----------------------";
+  #拷贝文件至至war_backup目录，没有则新建目录
+  mkdir -p /home/bikegw/war_backup/ && cp ${bikegw_SDIR}/webapps/bikegw.war /home/bikegw/war_backup/$filename
+  mkdir -p /home/bikegw/log_backup/$logname/ && cp ${bikegw_SDIR}/logs/* /home/bikegw/log_backup/$logname/
+  echo "-----------------------   备份成功！  ---------------------------"
+  rm -rf ${bikegw_SDIR}/logs/*
+  rm -rf ${bikegw_SDIR}/bin/logs/*
+  rm -rf ${bikegw_SDIR}/webapps/*
+  echo "-----------------------   删除成功！  ---------------------------"
+  cp /home/bikegw/war_new/bikegw.war ${bikegw_SDIR}/webapps/
+  echo "-----------------------   新 war 拷贝成功！  --------------------------"
+  echo "-----------------------   开始启动 bikegw Tomcat  --------------------------"
+  #获取环境变量，否则提示找不到 NEST_HOME
+  export NEST_HOME=/home/bike/NEST_FILE
+  cd $StartTomcat
+  nohup ./startup.sh &
+  sleep 4 #等候4秒
+  TomcatNEWID=$(ps -ef |grep tomcat |grep -w 'apache-tomcat-bikegw'|grep -v 'grep'|awk '{print $2}')
+  echo "bikegw tomcat 新进程为:$TomcatNEWID"statements
+fi
