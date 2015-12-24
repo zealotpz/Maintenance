@@ -23,7 +23,7 @@ echo "tomcat 关闭成功";
 
 sleep 3
 if [ ! -f "$newfile" ]; then
-  echo "bikegw.war不存在，请上传文件！"
+  echo "bikemt.war不存在，请上传文件！"
 else
    echo "-------------------  开始备份并删除日志文件与旧 war 包  ----------------------";
    #拷贝文件至至war_backup目录，没有则新建目录
