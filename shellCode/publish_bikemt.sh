@@ -1,6 +1,7 @@
 #!/bin/bash
 bikemt_SDIR=/home/bikemt/apache-tomcat-bikemt
 StartTomcat=/home/bikemt/apache-tomcat-bikemt/bin/
+newfile=/home/bikegw/war_new/bikemt.war
 #获取时间并格式化
 time=`date +"%Y%m%d%H%M" `
 #备份文件名
@@ -21,21 +22,24 @@ fi;
 echo "tomcat 关闭成功";
 
 sleep 3
-
-echo "-------------------  开始备份并删除日志文件与旧 war 包  ----------------------";
-#拷贝文件至至war_backup目录，没有则新建目录
-mkdir -p /home/bikemt/war_backup/ && cp ${bikemt_SDIR}/webapps/bikemt.war /home/bikemt/war_backup/$filename
-echo "-----------------------   备份成功！  ---------------------------"
-rm -rf ${bikemt_SDIR}/logs/*
-rm -rf ${bikemt_SDIR}/bin/logs/*
-rm -rf ${bikemt_SDIR}/webapps/*
-echo "-----------------------   删除成功！  ---------------------------"
-cp /home/bikemt/war_new/bikemt.war ${bikemt_SDIR}/webapps/
-echo "-----------------------   新 war 拷贝成功！  --------------------------"
-echo "-----------------------   开始启动 bikemt Tomcat  --------------------------"
-#获取环境变量，否则提示找不到 NEST_HOME
-export NEST_HOME=/home/bike/NEST_FILE
-cd $StartTomcat
-nohup ./startup.sh &
-TomcatNEWID=$(ps -ef |grep tomcat |grep -w 'apache-tomcat-bikemt'|grep -v 'grep'|awk '{print $2}')
-echo "bikemt tomcat 新进程为:$TomcatNEWID"
+if [ ! -f "$newfile" ]; then
+  echo "bikegw.war不存在，请上传文件！"
+else
+   echo "-------------------  开始备份并删除日志文件与旧 war 包  ----------------------";
+   #拷贝文件至至war_backup目录，没有则新建目录
+   mkdir -p /home/bikemt/war_backup/ && cp ${bikemt_SDIR}/webapps/bikemt.war /home/bikemt/war_backup/$filename
+   echo "-----------------------   备份成功！  ---------------------------"
+   rm -rf ${bikemt_SDIR}/logs/*
+   rm -rf ${bikemt_SDIR}/bin/logs/*
+   rm -rf ${bikemt_SDIR}/webapps/*
+   echo "-----------------------   删除成功！  ---------------------------"
+   cp /home/bikemt/war_new/bikemt.war ${bikemt_SDIR}/webapps/
+   echo "-----------------------   新 war 拷贝成功！  --------------------------"
+   echo "-----------------------   开始启动 bikemt Tomcat  --------------------------"
+   #获取环境变量，否则提示找不到 NEST_HOME
+   export NEST_HOME=/home/bike/NEST_FILE
+   cd $StartTomcat
+   nohup ./startup.sh &
+   TomcatNEWID=$(ps -ef |grep tomcat |grep -w 'apache-tomcat-bikemt'|grep -v 'grep'|awk '{print $2}')
+   echo "bikemt tomcat 新进程为:$TomcatNEWID"
+fi
